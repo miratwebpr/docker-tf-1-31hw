@@ -40,11 +40,11 @@ resource "aws_ecs_service" "main" {
     depends_on = [aws_iam_role_policy_attachment.ecs_task_execution_role]
 }
 
-data "aws_network_interface" "interface_tags" {
-    filter {
-        name   = "tag:aws:ecs:${aws_ecs_service.main.name}"
-        values = [aws_ecs_service.main.name]
-    }
-    depends_on = [aws_ecs_service.main]
-}
+# data "aws_network_interface" "interface_tags" {
+#     filter {
+#         name   = "tag:aws:ecs:${aws_ecs_service.main.name}"
+#         values = [aws_ecs_service.main.name]
+#     }
+#     depends_on = [aws_ecs_service.main]
+# }
 
