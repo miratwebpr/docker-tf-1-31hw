@@ -22,10 +22,13 @@ data "aws_vpc" "main" {
 }
 
 data "aws_subnets" "main" {
-  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.main.id]
+  }
 }
 
 data "aws_subnet" "main" {
-  count = "${length(data.aws_subnet_ids.main.ids)}"
-  id = "${tolist(data.aws_subnet_ids.main.ids)[count.index]}"
+  for_each = toset(data.aws_subnets.main.ids)
+  id = each.value
 }
