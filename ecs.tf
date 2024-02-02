@@ -37,7 +37,7 @@ resource "aws_ecs_service" "main" {
         subnets = data.aws_subnet.main.*.id
         assign_public_ip = true
     }
-    depends_on = [aws_iam_role_policy_attachement.ecs_task_execution_role]
+    depends_on = [aws_iam_role_policy_attachment.ecs_task_execution_role]
 }
 
 data "aws_network_interface" "interface_tags" {
