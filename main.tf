@@ -9,14 +9,23 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-east-1"
+  # We can specify credentials such as AWS Access key ID and Secret access key to access aws from our "local"
+  # shared_credentials_file = "$HOME/.aws/credentials"
+  region = var.aws_region
+}
+
+data "aws_availability_zones" "available" {
 }
 
 data "aws_vpc" "main" {
-    id = "vpc-01e89344a2b59f694"
+  id = "vpc-01e89344a2b59f694"
 }
 
-# resource "aws_ecs_service" "mouse" {
-#     name = "mouse"
+data "aws_subnet_ids" "main" {
+  vpc_id = data.aws_vpc.main.id
+}
 
-# }
+data "aws_subnet" "main" {
+  count = "${length(data.aws_subnet_ids.main.ids)}"
+  id = "${tolist(data.aws_subnet_ids.main.ids)[count.index]}"
+}
