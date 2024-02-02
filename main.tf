@@ -16,7 +16,7 @@ data "aws_vpc" "main" {
     id = "vpc-01e89344a2b59f694"
 }
 
-# resource "aws_ecs_cluster" "mouse" {
+# resource "aws_ecs_service" "mouse" {
 #     name = "mouse"
 
 # }
