@@ -21,7 +21,7 @@ data "aws_vpc" "main" {
   id = "vpc-01e89344a2b59f694"
 }
 
-data "aws_subnet_ids" "main" {
+data "aws_subnets" "main" {
   vpc_id = data.aws_vpc.main.id
 }
 
