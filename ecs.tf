@@ -34,7 +34,7 @@ resource "aws_ecs_service" "main" {
 
     network_configuration {
         security_groups = [aws_security_group.ecs_tasks.id]
-        subnets = data.aws_subnet.main.*.id
+        subnets = for [s in data.aws_subnet.main : s.id]
         assign_public_ip = true
     }
     depends_on = [aws_iam_role_policy_attachment.ecs_task_execution_role]
