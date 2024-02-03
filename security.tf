@@ -17,7 +17,7 @@ resource "aws_security_group" "ecs_tasks" {
     }
 }
 
-resource "aws_iam_policy" "ecs_task_execution_role" {
+data "aws_iam_policy_document" "ecs_task_execution_role" {
     version = "2012-10-17"
     statement {
         sid = ""
@@ -33,7 +33,7 @@ resource "aws_iam_policy" "ecs_task_execution_role" {
 
 resource "aws_iam_role" "ecs_task_execution_role" {
     name = var.ecs_task_execution_role_name
-    assume_role_policy = aws_iam_policy.ecs_task_execution_role.json
+    assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
